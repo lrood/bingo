@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+           <meta charset="UTF-8"/>
+           <title>Bingo</title>
+		   <style>
+		   body{
+				background-color: #a1ffc0;
+		   }
+		  
+		   button{
+				margin:10px auto;
+			}
+		   canvas{border:#000000 10px solid;}
+		   #canvas2{
+		   
+		   
+		   margin-left: 200px;
+		   top: 10px;
+		   }
+		   </style>
+		   <script type="application/JavaScript" language="JavaScript">
+		   window.onload=caller;
+			function caller(){
+				var canvas1=document.getElementById("canvas1");
+				var ctx=canvas1.getContext("2d");
+				var canvas2=document.getElementById("canvas2");
+				var context=canvas2.getContext("2d");
+				var r;
+				var count=0;
+				var called = [];
+				var x;
+				
+				for (i = 0; i < 75; i++) {
+				called[i] = 0;
+				}
+				document.getElementById("next").addEventListener("click", random, false);
+				document.getElementById("clear").addEventListener("click", redraw, false);
+				draw();
+				
+			
+				function draw(){
+				ctx.font = "100px Arial";
+				ctx.fillStyle = "#a1ffc0";
+				ctx.fillRect (0,0,1200,480);
+				ctx.fillStyle = "black";
+				ctx.fillText("B", 10, 75);
+				ctx.fillText("I", 10, 175);
+				ctx.fillText("N", 10, 275);
+				ctx.fillText("G", 10, 375);
+				ctx.fillText("O", 10, 475);
+				
+				}
+				
+				function redraw(){
+				if (confirm("Are you sure?") == true) {
+				context.fillStyle = "#a1ffc0";
+				context.fillRect(0,0,200,100);
+				ctx.fillStyle = "#FFFF66";
+				ctx.fillRect (0,0,1200,480);
+				count = 0;
+				for (i = 0; i < 75; i++) {
+				called[i] = 0;
+				}
+				draw();
+				} 
+				}
+				
+				function call(){
+				if (count < 75){
+				context.fillStyle = "#a1ffc0";
+				context.fillRect(0,0,200,100);
+				context.font = "100px Arial";
+				context.fillStyle = "black";
+				ctx.fillStyle = "black";
+				ctx.font = "50px Arial";
+				b = 100 + ((r - 1) * 70);
+				i = 100 + ((r - 16) * 70);
+				n = 100 + ((r - 31) * 70);
+				g = 100 + ((r - 46) * 70);
+				o = 100 + ((r - 61) * 70);
+				if (r > 0 && r < 16){
+				context.fillText("B" + r,10,80);
+				ctx.fillText(r,b,60);
+				}
+				if (r > 15 && r < 31){
+				context.fillText("I" + r,10,80);
+				ctx.fillText(r,i,150);
+				}
+				if (r > 30 && r < 46){
+				context.fillText("N" + r,10,80);
+				ctx.fillText(r,n,250);
+				}
+				if (r > 45 && r < 61){
+				context.fillText("G" + r,10,80);
+				ctx.fillText(r,g,350);
+				}
+				if (r > 60 && r < 76){
+				context.fillText("O" + r,10,80);
+				ctx.fillText(r,o,450);
+				}
+				count += 1;
+				}
+				}
+				function random(){
+				check();
+				call();
+				}
+				
+				function check(){
+				r = Math.floor((Math.random() * 75) + 1);
+				for (i = 0; i < 75; i++) {
+				if (r == called[i]){
+				r = Math.floor((Math.random() * 75) + 1);
+				check();
+				}
+				}
+				called[count] = r;
+				
+				}
+			}
+			</script>
+        </head>
+        <body>
+		<center>
+			
+			<button id="next" >Next Call</button>
+			<button id="clear">Clear</button>
+			<canvas id="canvas2" width=200 height="100">
+			</canvas>
+			<canvas id="canvas1" width=1200 height="480">
+			</canvas>
+			
+		</center>
+        </body>
+    </html>
